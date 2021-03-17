@@ -1,9 +1,12 @@
 
 import './App.css';
+import Calendar from './components/Calendar';
 
 function App() {
   return (
-    <div>Hello from the children of the planet Earth</div>
+    <div>
+      <Calendar />
+    </div>
   );
 }
 
