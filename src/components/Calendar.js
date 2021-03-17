@@ -8,6 +8,7 @@ import {
   Agenda,
   Inject,
 } from "@syncfusion/ej2-react-schedule";
+import AddAppointment from "./AddAppointment";
 
 class Calendar extends React.Component {
   onPopupOpen(args) {
@@ -28,6 +29,8 @@ class Calendar extends React.Component {
         ActionEventArgs.data[0].StartTime,
         ActionEventArgs.data[0].EndTime
       );
+
+      AddAppointment(ActionEventArgs.data[0]);
     }
   }
 
