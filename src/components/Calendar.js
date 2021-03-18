@@ -30,7 +30,7 @@ class Calendar extends React.Component {
 
       let appointments = [];
       appointments = this.getInfo();
-      console.log(appointments[1]);
+      console.log(appointments);
     }
   };
 
