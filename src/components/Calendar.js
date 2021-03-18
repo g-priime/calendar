@@ -12,13 +12,19 @@ import AddAppointment from "./AddAppointment";
 import GetAppointments from "./GetAppointments";
 
 class Calendar extends React.Component {
-  onPopupOpen(args) {
-    console.log("hello");
-  }
-
-  //not work
-  onEditorClose() {
-    console.log("g'bye");
+  constructor() {
+    super(...arguments);
+    this.data = [
+      {
+        Id: 2,
+        Subject: "Meeting",
+        StartTime: new Date(2021, 2, 15, 1, 0),
+        EndTime: new Date(2021, 2, 15, 12, 30),
+        IsAllDay: false,
+        Status: "Completed",
+        Priority: "High",
+      },
+    ];
   }
 
   getAppointmentInfo = () => {
@@ -31,6 +37,7 @@ class Calendar extends React.Component {
       let appointments = [];
       appointments = this.getInfo();
       console.log(appointments);
+      console.log(this.data);
     }
   };
 
@@ -60,9 +67,10 @@ class Calendar extends React.Component {
     return (
       <div>
         <ScheduleComponent
-          popupOpen={this.onPopupOpen.bind(this)}
-          editorClose={this.onEditorClose.bind(this)}
           actionBegin={this.onActionBegin.bind(this)}
+          eventSettings={{
+            dataSource: this.data,
+          }}
         >
           <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
         </ScheduleComponent>
