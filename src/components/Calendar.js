@@ -9,6 +9,7 @@ import {
   Inject,
 } from "@syncfusion/ej2-react-schedule";
 import AddAppointment from "./AddAppointment";
+import GetAppointments from "./GetAppointments";
 
 class Calendar extends React.Component {
   onPopupOpen(args) {
@@ -19,6 +20,25 @@ class Calendar extends React.Component {
   onEditorClose() {
     console.log("g'bye");
   }
+
+  getAppointmentInfo = () => {
+    let gotInfo = false;
+
+    if (gotInfo === false) {
+      gotInfo = true;
+      console.log("get info");
+
+      let appointments = [];
+      appointments = this.getInfo();
+      console.log(appointments[1]);
+    }
+  };
+
+  getInfo = async () => {
+    let result = [];
+    result = await GetAppointments();
+    return result.documents;
+  };
 
   onActionBegin(ActionEventArgs) {
     if (ActionEventArgs.changedRecords !== undefined) {
@@ -35,6 +55,8 @@ class Calendar extends React.Component {
   }
 
   render() {
+    this.getAppointmentInfo();
+
     return (
       <div>
         <ScheduleComponent
