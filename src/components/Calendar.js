@@ -33,8 +33,8 @@ class Calendar extends React.Component {
     let result = [];
     result = await GetAppointments();
 
-    this.setState({ data: result.documents });
-    console.log(this.state.data);
+    this.setState({ data: result });
+    console.log(result);
   };
 
   onActionBegin(ActionEventArgs) {
