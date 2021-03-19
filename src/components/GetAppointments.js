@@ -5,14 +5,14 @@ export default function GetAppointments() {
 
   projectFirestore
     .collection("appointment")
-    .orderBy("startTime", "desc")
-    .onSnapshot((snap) => {
-      snap.forEach((doc) => {
+    .get()
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
         if (true) {
           documents.push({ ...doc.data(), id: doc.id });
         }
       });
+      console.log(documents.length);
+      return { documents };
     });
-
-  return { documents };
 }
