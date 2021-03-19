@@ -1,6 +1,6 @@
 import { projectFirestore } from "../firebase";
 
-export default function GetAppointments() {
+export default async function GetAppointments() {
   let documents = [];
 
   projectFirestore
@@ -13,6 +13,7 @@ export default function GetAppointments() {
         }
       });
       console.log(documents.length);
-      return { documents };
+      //this.setState({ documents });
+      return Promise.resolve({ documents });
     });
 }
