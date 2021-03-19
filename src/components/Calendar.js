@@ -31,21 +31,21 @@ class Calendar extends React.Component {
 
   getInfo = async () => {
     let documents = [];
-    
+
     projectFirestore
-    .collection("appointment")
-    .get()
-    .then((snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        if (true) {
-          documents.push({ ...doc.data(), id: doc.id });
-        }
+      .collection("appointment")
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          if (true) {
+            documents.push({ ...doc.data(), id: doc.id });
+          }
+        });
+        console.log(documents.length);
+        this.setState({ data: documents });
+        console.log(this.state.data);
+        //return Promise.resolve({ documents });
       });
-      console.log(documents.length);
-      this.setState({ data: documents });
-      console.log(this.state.data)
-      //return Promise.resolve({ documents });
-    });
     //this.data = await GetAppointments();
 
     //this.setState({ data: await GetAppointments() });
@@ -73,7 +73,13 @@ class Calendar extends React.Component {
         <ScheduleComponent
           actionBegin={this.onActionBegin.bind(this)}
           eventSettings={{
-            dataSource: this.state.data,
+            dataSource: [
+              {
+                Subject: "Therapist",
+                EndTime: new Date(2021, 2, 15, 1, 0, 30),
+                StartTime: new Date(2021, 2, 15, 0, 0),
+              },
+            ],
           }}
         >
           <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
