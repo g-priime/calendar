@@ -14,37 +14,27 @@ import GetAppointments from "./GetAppointments";
 class Calendar extends React.Component {
   constructor() {
     super(...arguments);
-    this.data = [
-      {
-        Id: 2,
-        Subject: "Meeting",
-        StartTime: new Date(2021, 2, 15, 1, 0),
-        EndTime: new Date(2021, 2, 15, 12, 30),
-        IsAllDay: false,
-        Status: "Completed",
-        Priority: "High",
-      },
-    ];
+    this.data = [];
+    this.gotInfo = false;
   }
 
-  getAppointmentInfo = () => {
-    let gotInfo = false;
+  state = { data: [] };
 
-    if (gotInfo === false) {
-      gotInfo = true;
+  getAppointmentInfo = () => {
+    if (this.gotInfo === false) {
+      this.gotInfo = true;
       console.log("get info");
 
-      let appointments = [];
-      appointments = this.getInfo();
-      console.log(appointments);
-      console.log(this.data);
+      this.getInfo();
     }
   };
 
   getInfo = async () => {
     let result = [];
     result = await GetAppointments();
-    return result.documents;
+
+    this.setState({ data: result.documents });
+    console.log(this.state.data);
   };
 
   onActionBegin(ActionEventArgs) {
@@ -69,7 +59,7 @@ class Calendar extends React.Component {
         <ScheduleComponent
           actionBegin={this.onActionBegin.bind(this)}
           eventSettings={{
-            dataSource: this.data,
+            dataSource: this.state.data,
           }}
         >
           <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
