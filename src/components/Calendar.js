@@ -9,7 +9,7 @@ import {
   Inject,
 } from "@syncfusion/ej2-react-schedule";
 import AddAppointment from "./AddAppointment";
-import GetAppointments from "./GetAppointments";
+import { projectFirestore } from "../firebase";
 
 class Calendar extends React.Component {
   constructor() {
@@ -30,11 +30,25 @@ class Calendar extends React.Component {
   };
 
   getInfo = async () => {
-    let result = [];
-    result = await GetAppointments();
+    let documents = [];
+    
+    projectFirestore
+    .collection("appointment")
+    .get()
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        if (true) {
+          documents.push({ ...doc.data(), id: doc.id });
+        }
+      });
+      console.log(documents.length);
+      this.setState({ data: documents });
+      console.log(this.state.data)
+      //return Promise.resolve({ documents });
+    });
+    //this.data = await GetAppointments();
 
-    this.setState({ data: result });
-    console.log(result);
+    //this.setState({ data: await GetAppointments() });
   };
 
   onActionBegin(ActionEventArgs) {
