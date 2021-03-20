@@ -38,7 +38,13 @@ class Calendar extends React.Component {
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           if (true) {
-            documents.push({ ...doc.data(), id: doc.id });
+            documents.push({
+              ...doc.data(),
+              id: doc.id,
+              StartTime: new Date(doc.data().startTime.seconds * 1000),
+              EndTime: new Date(doc.data().endTime.seconds * 1000),
+              Subject: doc.data().appointmentType,
+            });
           }
         });
         console.log(documents.length);
@@ -73,13 +79,7 @@ class Calendar extends React.Component {
         <ScheduleComponent
           actionBegin={this.onActionBegin.bind(this)}
           eventSettings={{
-            dataSource: [
-              {
-                Subject: "Therapist",
-                EndTime: new Date(2021, 2, 15, 1, 0, 30),
-                StartTime: new Date(2021, 2, 15, 0, 0),
-              },
-            ],
+            dataSource: this.state.data,
           }}
         >
           <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
