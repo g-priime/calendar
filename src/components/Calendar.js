@@ -72,11 +72,16 @@ class Calendar extends React.Component {
         ActionEventArgs.data[0].EndTime
       );
       AddAppointment(ActionEventArgs.data[0]);
+      this.getInfo();
+      //call getInfo() to ensure appt can be updated right after being added
+      //otherwise firebase thinks there's no appt to be updated
+
+      //this.scheduleObj.refreshEvents();
     } else if (
       ActionEventArgs.changedRecords !== undefined &&
       ActionEventArgs.requestType === "eventChange"
     ) {
-      console.log(ActionEventArgs.changedRecords[0])
+      console.log(ActionEventArgs.changedRecords[0]);
       EditAppointment(ActionEventArgs.changedRecords[0]);
     }
   }
@@ -87,6 +92,7 @@ class Calendar extends React.Component {
     return (
       <div>
         <ScheduleComponent
+          //ref={(t) => (this.scheduleObj = t)}
           actionBegin={this.onActionBegin.bind(this)}
           eventSettings={{
             dataSource: this.state.data,
