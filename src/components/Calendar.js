@@ -76,7 +76,8 @@ class Calendar extends React.Component {
       ActionEventArgs.changedRecords !== undefined &&
       ActionEventArgs.requestType === "eventChange"
     ) {
-      EditAppointment();
+      console.log(ActionEventArgs.changedRecords[0])
+      EditAppointment(ActionEventArgs.changedRecords[0]);
     }
   }
 
