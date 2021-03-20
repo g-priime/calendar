@@ -1,13 +1,17 @@
 import React from "react";
 import { projectFirestore } from "../firebase";
 
-export default function EditAppointment() {
+export default function EditAppointment(appointment) {
   const collectionRef = projectFirestore.collection("appointment");
 
   collectionRef
-    .doc("7YzvYOx8MUc2fMH9NS8i")
+    .doc(appointment.id)
     .update({
-      appointmentType: "Another appointment"
+        id: appointment.Id.toString(),
+        appointmentType: appointment.Subject,
+        startTime: appointment.StartTime,
+        endTime: appointment.EndTime,
+        isAllDay: appointment.IsAllDay,
     })
     .then(() => {
       console.log("Document successfully updated!");
