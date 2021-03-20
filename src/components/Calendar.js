@@ -10,6 +10,7 @@ import {
 } from "@syncfusion/ej2-react-schedule";
 import AddAppointment from "./AddAppointment";
 import { projectFirestore } from "../firebase";
+import EditAppointment from "./EditAppointment";
 
 class Calendar extends React.Component {
   constructor() {
@@ -41,6 +42,7 @@ class Calendar extends React.Component {
             documents.push({
               ...doc.data(),
               id: doc.id,
+              Id: doc.data().id,
               StartTime: new Date(doc.data().startTime.seconds * 1000),
               EndTime: new Date(doc.data().endTime.seconds * 1000),
               Subject: doc.data().appointmentType,
@@ -58,7 +60,10 @@ class Calendar extends React.Component {
   };
 
   onActionBegin(ActionEventArgs) {
-    if (ActionEventArgs.changedRecords !== undefined) {
+    if (
+      ActionEventArgs.changedRecords !== undefined &&
+      ActionEventArgs.requestType === "eventCreate"
+    ) {
       console.log(
         ActionEventArgs.data[0].Subject,
         ActionEventArgs.data[0].Id,
@@ -66,8 +71,12 @@ class Calendar extends React.Component {
         ActionEventArgs.data[0].StartTime,
         ActionEventArgs.data[0].EndTime
       );
-
       AddAppointment(ActionEventArgs.data[0]);
+    } else if (
+      ActionEventArgs.changedRecords !== undefined &&
+      ActionEventArgs.requestType === "eventChange"
+    ) {
+      EditAppointment();
     }
   }
 
