@@ -7,7 +7,6 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import NavBar from "./components/NavBar";
 
 function App() {
   return (
