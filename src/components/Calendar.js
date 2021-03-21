@@ -39,7 +39,7 @@ class Calendar extends React.Component {
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
-          if (true) {
+          if (this.props.currentUser.email === doc.data().email) {
             documents.push({
               ...doc.data(),
               id: doc.id,
