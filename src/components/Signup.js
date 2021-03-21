@@ -63,52 +63,55 @@ export default function Signup() {
   return (
     <div className="ImageGallery">
       {
-      //<TitleLogInPage pageTitle={pageTitle} />
-}
+        //<TitleLogInPage pageTitle={pageTitle} />
+      }
       <Container
         className="d-flex justify-content-center"
         style={{ minHeight: "100vh" }}
       >
         <div className="w-100" style={{ maxWidth: "400px" }}>
-          <Card.Body>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" ref={emailRef} required />
-              </Form.Group>
-              <Form.Group id="username">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  type="displayName"
-                  ref={displayNameRef}
-                  required
-                />
-              </Form.Group>
-              <Form.Group id="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" ref={passwordRef} required />
-              </Form.Group>
-              <Form.Group id="password-confirm">
-                <Form.Label>Password Confirmation</Form.Label>
-                <Form.Control
-                  type="password"
-                  ref={passwordConfirmRef}
-                  required
-                />
-              </Form.Group>
-              <Button
-                disabled={loading}
-                className="w-100 button-forms"
-                type="submit"
-              >
-                Create Account
-              </Button>
-            </Form>
-          </Card.Body>
-          <div className="w-100 text-center mt-2">
-            Already have an account? <Link to="/login">Log In</Link>
-          </div>
+          <Card border="primary" bg="dark" text="light">
+            <Card.Body>
+              <Card.Title>Sign Up</Card.Title>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group id="email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="email" ref={emailRef} required />
+                </Form.Group>
+                <Form.Group id="username">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type="displayName"
+                    ref={displayNameRef}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group id="password">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" ref={passwordRef} required />
+                </Form.Group>
+                <Form.Group id="password-confirm">
+                  <Form.Label>Password Confirmation</Form.Label>
+                  <Form.Control
+                    type="password"
+                    ref={passwordConfirmRef}
+                    required
+                  />
+                </Form.Group>
+                <Button
+                  disabled={loading}
+                  className="w-100 button-forms"
+                  type="submit"
+                >
+                  Create Account
+                </Button>
+              </Form>
+            </Card.Body>
+            <div className="w-100 text-center mt-2">
+              Already have an account? <Link to="/login">Log In</Link>
+            </div>
+          </Card>
         </div>
       </Container>
     </div>
