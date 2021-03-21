@@ -94,7 +94,7 @@ class Calendar extends React.Component {
 
     return (
       <div>
-        { this.props.currentUser.displayName }
+        {  }
         <ScheduleComponent
           //ref={(t) => (this.scheduleObj = t)}
           actionBegin={this.onActionBegin.bind(this)}
