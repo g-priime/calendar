@@ -39,29 +39,32 @@ export default function ForgotPassword() {
         style={{ minHeight: "100vh" }}
       >
         <div className="w-100" style={{ maxWidth: "400px" }}>
-          <Card.Body>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {message && <Alert variant="success">{message}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" ref={emailRef} required />
-              </Form.Group>
-              <Button
-                disabled={loading}
-                className="w-100 button-forms"
-                type="submit"
-              >
-                Reset Password
-              </Button>
-            </Form>
-            <div className="w-100 text-center mt-3">
-              <Link to="/login">Login</Link>
+          <Card border="primary" bg="dark" text="light">
+            <Card.Body>
+              <Card.Title>Reset Password</Card.Title>
+              {error && <Alert variant="danger">{error}</Alert>}
+              {message && <Alert variant="success">{message}</Alert>}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group id="email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="email" ref={emailRef} required />
+                </Form.Group>
+                <Button
+                  disabled={loading}
+                  className="w-100 button-forms"
+                  type="submit"
+                >
+                  Reset Password
+                </Button>
+              </Form>
+              <div className="w-100 text-center mt-3">
+                <Link to="/login">Login</Link>
+              </div>
+            </Card.Body>
+            <div className="w-100 text-center mt-2">
+              Need an account? <Link to="/signup">Sign Up</Link>
             </div>
-          </Card.Body>
-          <div className="w-100 text-center mt-2">
-            Need an account? <Link to="/signup">Sign Up</Link>
-          </div>
+          </Card>
         </div>
       </Container>
     </div>
