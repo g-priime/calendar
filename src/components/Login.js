@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import TitleLogInPage from "./TitleLogInPage";
+//import TitleLogInPage from "./TitleLogInPage";
 
 export default function Login() {
   const emailRef = useRef();
@@ -12,7 +12,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const pageTitle = "Log In to SMBD";
+  //const pageTitle = "Log In to SMBD";
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +31,9 @@ export default function Login() {
 
   return (
     <div className="ImageGallery">
-      <TitleLogInPage pageTitle={pageTitle} />
+      {
+        //<TitleLogInPage pageTitle={pageTitle} />
+      }
       <Container
         className="d-flex justify-content-center"
         style={{ minHeight: "100vh" }}
