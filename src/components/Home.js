@@ -5,8 +5,10 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
-    const history = useHistory();
-    const { logout } = useAuth();
+  const history = useHistory();
+  const { logout } = useAuth();
+
+  const { currentUser } = useAuth();
 
   async function handleLogout() {
     //closeMobileMenu();
@@ -23,7 +25,7 @@ export default function Home() {
   return (
     <div>
       <Button onClick={handleLogout}>Log Out</Button>
-      <Calendar />
+      <Calendar currentUser={currentUser} />
     </div>
   );
 }
