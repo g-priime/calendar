@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert, Container } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import TitleLogInPage from "./TitleLogInPage";
+//import TitleLogInPage from "./TitleLogInPage";
 
 export default function ForgotPassword() {
   const emailRef = useRef();
@@ -11,7 +11,7 @@ export default function ForgotPassword() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const pageTitle = "Reset Password";
+  //const pageTitle = "Reset Password";
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +31,9 @@ export default function ForgotPassword() {
 
   return (
     <div className="ImageGallery">
-      <TitleLogInPage pageTitle={pageTitle} />
+      {
+        //<TitleLogInPage pageTitle={pageTitle} />
+      }
       <Container
         className="d-flex justify-content-center"
         style={{ minHeight: "100vh" }}
