@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import './App.css';
 import PrivateRoute from "./components/PrivateRoute";
-import Calendar from './components/Calendar';
+import Home from './components/Home';
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
@@ -13,7 +13,7 @@ function App() {
       <Router>
         <AuthProvider>
           <Switch>
-            <PrivateRoute exact path="/" component={Calendar} />
+            <PrivateRoute exact path="/" component={Home} />
 
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
