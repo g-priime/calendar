@@ -45,13 +45,13 @@ export default function ForgotPassword() {
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="email" ref={emailRef} required />
               </Form.Group>
-              <button
+              <Button
                 disabled={loading}
                 className="w-100 button-forms"
                 type="submit"
               >
                 Reset Password
-              </button>
+              </Button>
             </Form>
             <div className="w-100 text-center mt-3">
               <Link to="/login">Login</Link>
