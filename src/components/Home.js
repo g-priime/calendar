@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <Button onClick={handleLogout}>Log Out</Button>
+      
       <Calendar currentUser={currentUser} />
     </div>
   );
