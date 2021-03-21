@@ -72,7 +72,7 @@ class Calendar extends React.Component {
         ActionEventArgs.data[0].StartTime,
         ActionEventArgs.data[0].EndTime
       );
-      AddAppointment(ActionEventArgs.data[0]);
+      AddAppointment(ActionEventArgs.data[0], this.props.currentUser);
       this.getInfo();
       //call getInfo() to ensure appt can be updated right after being added
       //otherwise firebase thinks there's no appt to be updated
@@ -94,6 +94,7 @@ class Calendar extends React.Component {
 
     return (
       <div>
+        { this.props.currentUser.displayName }
         <ScheduleComponent
           //ref={(t) => (this.scheduleObj = t)}
           actionBegin={this.onActionBegin.bind(this)}
