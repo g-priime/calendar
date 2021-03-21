@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <Jumbotron>
-        <NavBar />
+        
         <Router>
           <AuthProvider>
             <Switch>
