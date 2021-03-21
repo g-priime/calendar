@@ -4,6 +4,8 @@ import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+
+
 export default function Home() {
   const history = useHistory();
   const { logout } = useAuth();
@@ -24,6 +26,7 @@ export default function Home() {
 
   return (
     <div>
+      
       <Button onClick={handleLogout}>Log Out</Button>
       <Calendar currentUser={currentUser} />
     </div>
