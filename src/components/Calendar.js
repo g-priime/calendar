@@ -11,6 +11,7 @@ import {
 import AddAppointment from "./AddAppointment";
 import { projectFirestore } from "../firebase";
 import EditAppointment from "./EditAppointment";
+import DeleteAppointment from "./DeleteAppointment";
 
 class Calendar extends React.Component {
   constructor() {
@@ -83,6 +84,8 @@ class Calendar extends React.Component {
     ) {
       console.log(ActionEventArgs.changedRecords[0]);
       EditAppointment(ActionEventArgs.changedRecords[0]);
+    } else if (ActionEventArgs.requestType === "eventRemove") {
+      DeleteAppointment(ActionEventArgs.data[0]);
     }
   }
 
