@@ -14,8 +14,8 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const [currentUser, setCurrentUser] = useState();
-  const { updateDisplayName } = useAuth();
+  //const [currentUser, setCurrentUser] = useState();
+  //const { updateDisplayName } = useAuth();
 
   const pageTitle = "Create Your Account";
 
@@ -95,13 +95,13 @@ export default function Signup() {
                   required
                 />
               </Form.Group>
-              <button
+              <Button
                 disabled={loading}
                 className="w-100 button-forms"
                 type="submit"
               >
                 Create Account
-              </button>
+              </Button>
             </Form>
           </Card.Body>
           <div className="w-100 text-center mt-2">
