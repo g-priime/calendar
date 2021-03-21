@@ -29,7 +29,7 @@ export default function NavBar({ currentUser }) {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav>{currentUser.displayName}</Nav>
+            <Nav.Link eventKey="disabled" disabled>{currentUser.displayName}</Nav.Link>
             {/*
             <Nav.Link href="#features">Features</Nav.Link>
             
