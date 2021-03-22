@@ -52,6 +52,19 @@ class Calendar extends React.Component {
                 Description: doc.data().description,
                 IsAllDay: doc.data().isAllDay,
               });
+            } else if (doc.data().recurrenceException === "none") {
+              documents.push({
+                ...doc.data(),
+                id: doc.id,
+                Id: doc.data().id,
+                StartTime: new Date(doc.data().startTime.seconds * 1000),
+                EndTime: new Date(doc.data().endTime.seconds * 1000),
+                Subject: doc.data().appointmentType,
+                Location: doc.data().location,
+                Description: doc.data().description,
+                IsAllDay: doc.data().isAllDay,
+                RecurrenceRule: doc.data().recurrenceRule,
+              });
             } else {
               documents.push({
                 ...doc.data(),
@@ -64,6 +77,7 @@ class Calendar extends React.Component {
                 Description: doc.data().description,
                 IsAllDay: doc.data().isAllDay,
                 RecurrenceRule: doc.data().recurrenceRule,
+                RecurrenceException: doc.data().recurrenceException,
               });
             }
           }
@@ -84,16 +98,7 @@ class Calendar extends React.Component {
       ActionEventArgs.requestType === "eventCreate"
     ) {
       console.log(
-        ActionEventArgs.data[0].Subject,
-        ActionEventArgs.data[0].Id,
-        ActionEventArgs.data[0].IsAllDay,
-        ActionEventArgs.data[0].StartTime,
-        ActionEventArgs.data[0].EndTime,
-        ActionEventArgs.data[0].Location,
-        ActionEventArgs.data[0].Description,
-        ActionEventArgs.data[0].RecurrenceID,
-        ActionEventArgs.data[0].RecurrenceRule,
-        ActionEventArgs.data[0].RecurrenceException,
+        ActionEventArgs.data[0].RecurrenceException
       );
       AddAppointment(ActionEventArgs.data[0], this.props.currentUser);
       this.getInfo();
@@ -105,8 +110,20 @@ class Calendar extends React.Component {
       ActionEventArgs.changedRecords !== undefined &&
       ActionEventArgs.requestType === "eventChange"
     ) {
-      console.log(ActionEventArgs.changedRecords[0]);
-      EditAppointment(ActionEventArgs.changedRecords[0]);
+      console.log(ActionEventArgs.changedRecords[0].RecurrenceID);
+      if (
+        ActionEventArgs.changedRecords[0].RecurrenceID !== undefined &&
+        ActionEventArgs.changedRecords[0].RecurrenceID !== null
+      ) {
+        ActionEventArgs.changedRecords[0].RecurrenceRule = "FREQ=NEVER";
+        AddAppointment(
+          ActionEventArgs.changedRecords[0],
+          this.props.currentUser
+        );
+        EditAppointment(ActionEventArgs.changedRecords[0]);
+      } else {
+        EditAppointment(ActionEventArgs.changedRecords[0]);
+      }
     } else if (ActionEventArgs.requestType === "eventRemove") {
       DeleteAppointment(ActionEventArgs.data[0]);
     }
