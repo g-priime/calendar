@@ -40,16 +40,32 @@ class Calendar extends React.Component {
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           if (this.props.currentUser.email === doc.data().email) {
-            documents.push({
-              ...doc.data(),
-              id: doc.id,
-              Id: doc.data().id,
-              StartTime: new Date(doc.data().startTime.seconds * 1000),
-              EndTime: new Date(doc.data().endTime.seconds * 1000),
-              Subject: doc.data().appointmentType,
-              Location: doc.data().location,
-              Description: doc.data().description,
-            });
+            if (doc.data().recurrenceRule === "FREQ=NEVER") {
+              documents.push({
+                ...doc.data(),
+                id: doc.id,
+                Id: doc.data().id,
+                StartTime: new Date(doc.data().startTime.seconds * 1000),
+                EndTime: new Date(doc.data().endTime.seconds * 1000),
+                Subject: doc.data().appointmentType,
+                Location: doc.data().location,
+                Description: doc.data().description,
+                IsAllDay: doc.data().isAllDay,
+              });
+            } else {
+              documents.push({
+                ...doc.data(),
+                id: doc.id,
+                Id: doc.data().id,
+                StartTime: new Date(doc.data().startTime.seconds * 1000),
+                EndTime: new Date(doc.data().endTime.seconds * 1000),
+                Subject: doc.data().appointmentType,
+                Location: doc.data().location,
+                Description: doc.data().description,
+                IsAllDay: doc.data().isAllDay,
+                RecurrenceRule: doc.data().recurrenceRule,
+              });
+            }
           }
         });
         console.log(documents.length);
@@ -74,7 +90,10 @@ class Calendar extends React.Component {
         ActionEventArgs.data[0].StartTime,
         ActionEventArgs.data[0].EndTime,
         ActionEventArgs.data[0].Location,
-        ActionEventArgs.data[0].Description
+        ActionEventArgs.data[0].Description,
+        ActionEventArgs.data[0].RecurrenceID,
+        ActionEventArgs.data[0].RecurrenceRule,
+        ActionEventArgs.data[0].RecurrenceException,
       );
       AddAppointment(ActionEventArgs.data[0], this.props.currentUser);
       this.getInfo();
