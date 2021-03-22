@@ -14,6 +14,7 @@ export default function EditAppointment(appointment) {
       endTime: appointment.EndTime,
       isAllDay: appointment.IsAllDay,
       description: appointment.Description || "not specified",
+      recurrenceRule: appointment.RecurrenceRule || "FREQ=NEVER",
     })
     .then(() => {
       console.log("Document successfully updated!");
