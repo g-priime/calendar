@@ -9,9 +9,12 @@ export default function AddAppointment(appointment, currentUser) {
   collectionRef.doc(appointment.Id.toString()).set({
     id: appointment.Id.toString(),
     appointmentType: appointment.Subject,
+    location: appointment.Location || "not specified",
     startTime: appointment.StartTime,
     endTime: appointment.EndTime,
     isAllDay: appointment.IsAllDay,
+    description: appointment.Description || "not specified",
+
     email: currentUser.email,
     displayName: currentUser.displayName,
   });
