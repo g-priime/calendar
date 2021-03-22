@@ -47,6 +47,8 @@ class Calendar extends React.Component {
               StartTime: new Date(doc.data().startTime.seconds * 1000),
               EndTime: new Date(doc.data().endTime.seconds * 1000),
               Subject: doc.data().appointmentType,
+              Location: doc.data().location,
+              Description: doc.data().description,
             });
           }
         });
@@ -70,7 +72,9 @@ class Calendar extends React.Component {
         ActionEventArgs.data[0].Id,
         ActionEventArgs.data[0].IsAllDay,
         ActionEventArgs.data[0].StartTime,
-        ActionEventArgs.data[0].EndTime
+        ActionEventArgs.data[0].EndTime,
+        ActionEventArgs.data[0].Location,
+        ActionEventArgs.data[0].Description
       );
       AddAppointment(ActionEventArgs.data[0], this.props.currentUser);
       this.getInfo();
@@ -94,7 +98,7 @@ class Calendar extends React.Component {
 
     return (
       <div>
-        {  }
+        {}
         <ScheduleComponent
           //ref={(t) => (this.scheduleObj = t)}
           actionBegin={this.onActionBegin.bind(this)}
@@ -104,7 +108,6 @@ class Calendar extends React.Component {
         >
           <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
         </ScheduleComponent>
-        ;
       </div>
     );
   }
