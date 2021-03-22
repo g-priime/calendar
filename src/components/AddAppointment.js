@@ -14,6 +14,7 @@ export default function AddAppointment(appointment, currentUser) {
     endTime: appointment.EndTime,
     isAllDay: appointment.IsAllDay,
     description: appointment.Description || "not specified",
+    recurrenceRule: appointment.RecurrenceRule || "FREQ=NEVER",
 
     email: currentUser.email,
     displayName: currentUser.displayName,
