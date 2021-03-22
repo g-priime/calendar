@@ -110,7 +110,7 @@ class Calendar extends React.Component {
       ActionEventArgs.changedRecords !== undefined &&
       ActionEventArgs.requestType === "eventChange"
     ) {
-      console.log(ActionEventArgs.changedRecords[0].RecurrenceID);
+      console.log(ActionEventArgs.changedRecords[0]);
       if (
         ActionEventArgs.changedRecords[0].RecurrenceID !== undefined &&
         ActionEventArgs.changedRecords[0].RecurrenceID !== null
