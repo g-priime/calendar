@@ -13,8 +13,8 @@ import { projectFirestore } from "../firebase";
 import EditAppointment from "./EditAppointment";
 import DeleteAppointment from "./DeleteAppointment";
 
-import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
-import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
+import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
 
 class Calendar extends React.Component {
   constructor() {
@@ -28,7 +28,6 @@ class Calendar extends React.Component {
   getAppointmentInfo = () => {
     if (this.gotInfo === false) {
       this.gotInfo = true;
-      console.log("get info");
 
       this.getInfo();
     }
@@ -43,23 +42,21 @@ class Calendar extends React.Component {
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           if (this.props.currentUser.email === doc.data().email) {
-              documents.push({
-                ...doc.data(),
-                id: doc.id,
-                Id: doc.data().id,
-                StartTime: new Date(doc.data().startTime.seconds * 1000),
-                EndTime: new Date(doc.data().endTime.seconds * 1000),
-                Subject: doc.data().appointmentType,
-                Location: doc.data().location,
-                Description: doc.data().description,
-                IsAllDay: doc.data().isAllDay,
-                EventType: doc.data().eventType,
-              });
+            documents.push({
+              ...doc.data(),
+              id: doc.id,
+              Id: doc.data().id,
+              StartTime: new Date(doc.data().startTime.seconds * 1000),
+              EndTime: new Date(doc.data().endTime.seconds * 1000),
+              Subject: doc.data().appointmentType,
+              Location: doc.data().location,
+              Description: doc.data().description,
+              IsAllDay: doc.data().isAllDay,
+              EventType: doc.data().eventType,
+            });
           }
         });
-        console.log(documents.length);
         this.setState({ data: documents });
-        console.log(this.state.data);
         //return Promise.resolve({ documents });
       });
     //this.data = await GetAppointments();
@@ -72,25 +69,43 @@ class Calendar extends React.Component {
       ActionEventArgs.changedRecords !== undefined &&
       ActionEventArgs.requestType === "eventCreate"
     ) {
-      console.log(
-        ActionEventArgs.data[0].Subject,
-        ActionEventArgs.data[0].Id,
-        ActionEventArgs.data[0].IsAllDay,
-      );
-      AddAppointment(ActionEventArgs.data[0], this.props.currentUser);
-      this.getInfo();
-      //call getInfo() to ensure appt can be updated right after being added
-      //otherwise firebase thinks there's no appt to be updated
-
-      //this.scheduleObj.refreshEvents();
+      this.addAppointment(ActionEventArgs);
     } else if (
       ActionEventArgs.changedRecords !== undefined &&
       ActionEventArgs.requestType === "eventChange"
     ) {
-      console.log(ActionEventArgs.changedRecords[0]);
-      EditAppointment(ActionEventArgs.changedRecords[0]);
+      this.editAppointment(ActionEventArgs);
     } else if (ActionEventArgs.requestType === "eventRemove") {
       DeleteAppointment(ActionEventArgs.data[0]);
+    }
+  }
+
+  addAppointment(ActionEventArgs) {
+    let start = new Date(ActionEventArgs.addedRecords[0].StartTime);
+    let end = new Date(ActionEventArgs.addedRecords[0].EndTime);
+    let validRange = end > start;
+    if (!validRange) {
+      this.scheduleObj.uiStateValues.isBlock = true;
+      ActionEventArgs.cancel = true;
+      alert("End Time must be later than Start Time");
+    } else {
+      AddAppointment(ActionEventArgs.data[0], this.props.currentUser);
+      this.getInfo();
+      //call getInfo() to ensure appt can be updated right after being added
+      //otherwise firebase thinks there's no appt to be updated
+    }
+  }
+
+  editAppointment(ActionEventArgs) {
+    let start = new Date(ActionEventArgs.changedRecords[0].StartTime);
+    let end = new Date(ActionEventArgs.changedRecords[0].EndTime);
+    let validRange = end > start;
+    if (!validRange) {
+      this.scheduleObj.uiStateValues.isBlock = true;
+      ActionEventArgs.cancel = true;
+      alert("End Time must be later than Start Time");
+    } else {
+      EditAppointment(ActionEventArgs.changedRecords[0]);
     }
   }
 
@@ -194,7 +209,7 @@ class Calendar extends React.Component {
       <div>
         {}
         <ScheduleComponent
-          //ref={(t) => (this.scheduleObj = t)}
+          ref={(t) => (this.scheduleObj = t)}
           actionBegin={this.onActionBegin.bind(this)}
           eventSettings={{
             dataSource: this.state.data,
