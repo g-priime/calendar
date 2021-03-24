@@ -12,9 +12,10 @@ export default function EditAppointment(appointment) {
       location: appointment.Location || "not specified",
       startTime: appointment.StartTime,
       endTime: appointment.EndTime,
-      isAllDay: appointment.IsAllDay,
+      isAllDay: false,
       description: appointment.Description || "not specified",
       recurrenceRule: appointment.RecurrenceRule || "FREQ=NEVER",
+      eventType: appointment.EventType || "not specified",
     })
     .then(() => {
       console.log("Document successfully updated!");
