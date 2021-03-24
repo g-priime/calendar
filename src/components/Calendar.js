@@ -43,7 +43,6 @@ class Calendar extends React.Component {
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
           if (this.props.currentUser.email === doc.data().email) {
-            if (doc.data().recurrenceRule === "FREQ=NEVER") {
               documents.push({
                 ...doc.data(),
                 id: doc.id,
@@ -54,21 +53,8 @@ class Calendar extends React.Component {
                 Location: doc.data().location,
                 Description: doc.data().description,
                 IsAllDay: doc.data().isAllDay,
+                EventType: doc.data().eventType,
               });
-            } else {
-              documents.push({
-                ...doc.data(),
-                id: doc.id,
-                Id: doc.data().id,
-                StartTime: new Date(doc.data().startTime.seconds * 1000),
-                EndTime: new Date(doc.data().endTime.seconds * 1000),
-                Subject: doc.data().appointmentType,
-                Location: doc.data().location,
-                Description: doc.data().description,
-                IsAllDay: doc.data().isAllDay,
-                RecurrenceRule: doc.data().recurrenceRule,
-              });
-            }
           }
         });
         console.log(documents.length);
@@ -90,13 +76,6 @@ class Calendar extends React.Component {
         ActionEventArgs.data[0].Subject,
         ActionEventArgs.data[0].Id,
         ActionEventArgs.data[0].IsAllDay,
-        ActionEventArgs.data[0].StartTime,
-        ActionEventArgs.data[0].EndTime,
-        ActionEventArgs.data[0].Location,
-        ActionEventArgs.data[0].Description,
-        ActionEventArgs.data[0].RecurrenceID,
-        ActionEventArgs.data[0].RecurrenceRule,
-        ActionEventArgs.data[0].RecurrenceException
       );
       AddAppointment(ActionEventArgs.data[0], this.props.currentUser);
       this.getInfo();
@@ -130,6 +109,18 @@ class Calendar extends React.Component {
                 className="e-field e-input"
                 type="text"
                 name="Subject"
+                style={{ width: "100%" }}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="e-textlabel">Location</td>
+            <td colSpan={4}>
+              <input
+                id="Location"
+                className="e-field e-input"
+                type="text"
+                name="Location"
                 style={{ width: "100%" }}
               />
             </td>
